@@ -4,8 +4,13 @@ import java.sql.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 
 @Entity
+@Table(name="student")
 public class Student {
 
 	@Id
@@ -17,9 +22,14 @@ public class Student {
 	
 	private String user_surname;
 	
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date dob;
 	
+	@JsonFormat(pattern="dd-MM-yyyy")
 	private Date joining;
+	
+	@NotNull()
+	private boolean is_deleted = Boolean.FALSE;
 
 	public int getUser_id() {
 		return user_id;
@@ -69,7 +79,16 @@ public class Student {
 		this.joining = joining;
 	}
 
-	public Student(int user_id, long pincode, String user_name, String user_surname, Date dob, Date joining) {
+	public boolean isIs_deleted() {
+		return is_deleted;
+	}
+
+	public void setIs_deleted(boolean is_deleted) {
+		this.is_deleted = is_deleted;
+	}
+	
+	public Student(int user_id, long pincode, String user_name, String user_surname, Date dob, Date joining,
+			boolean is_deleted) {
 		super();
 		this.user_id = user_id;
 		this.pincode = pincode;
@@ -77,8 +96,9 @@ public class Student {
 		this.user_surname = user_surname;
 		this.dob = dob;
 		this.joining = joining;
+		this.is_deleted = is_deleted;
 	}
-
+	
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -87,6 +107,7 @@ public class Student {
 	@Override
 	public String toString() {
 		return "Student [user_id=" + user_id + ", pincode=" + pincode + ", user_name=" + user_name + ", user_surname="
-				+ user_surname + ", dob=" + dob + ", joining=" + joining + "]";
+				+ user_surname + ", dob=" + dob + ", joining=" + joining + ", is_deleted=" + is_deleted + "]";
 	}
+	
 }

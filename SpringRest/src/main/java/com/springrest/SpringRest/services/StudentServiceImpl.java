@@ -1,8 +1,10 @@
 package com.springrest.SpringRest.services;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.springrest.SpringRest.dao.StudentDao;
@@ -45,4 +47,28 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.save(student);
 	}
 
+	@Override
+	public List<Student> getSorting(Date dob) {
+		List<Student> passengers = studentDao.findAll(Sort.by(Sort.Direction.ASC, "dob"));
+		return passengers;
+	}
+
+	@Override
+	public List<Student> getSorting2(Date joining) {
+		List<Student> passenger = studentDao.findAll(Sort.by(Sort.Direction.ASC, "joining"));
+		return passenger;
+	}
+
+	@Override
+	public List<Student> getUserName(String user_name) {
+		// TODO Auto-generated method stub
+		return studentDao.getByUserName(user_name);
+	}
+
+	@Override
+	public void userSoftDelete(String user_id) {
+		// TODO Auto-generated method stub
+		studentDao.softDelete(user_id);
+	}
+	
 }
